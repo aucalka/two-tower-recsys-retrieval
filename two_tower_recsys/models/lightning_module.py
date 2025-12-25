@@ -22,7 +22,7 @@ class TwoTowerLightningModule(LightningModule):
         k_list: list[int],
         filter_seen: bool,
         seen_items_by_user: dict[int, set[int]],
-        val_df: pd.DataFrame,
+        val_df: pd.DataFrame | None,
     ) -> None:
         super().__init__()
         self.save_hyperparameters(ignore=["seen_items_by_user", "val_df"])
@@ -64,6 +64,8 @@ class TwoTowerLightningModule(LightningModule):
     @torch.no_grad()
     def validation_step(self, batch: object, batch_idx: int) -> None:
         if batch_idx != 0:
+            return
+        if self.val_df is None:
             return
 
         val_df = self.val_df

@@ -12,3 +12,9 @@ infer:
   user_id: 1
   k: 10
   filter_seen: true
+
+hydra:
+  job:
+    chdir: false
+  run:
+    dir: .

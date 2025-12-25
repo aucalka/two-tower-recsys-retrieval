@@ -33,3 +33,9 @@ index:
 
 export:
   do_onnx: true
+
+hydra:
+  job:
+    chdir: false
+  run:
+    dir: .

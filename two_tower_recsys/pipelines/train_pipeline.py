@@ -50,14 +50,14 @@ def main(cfg: DictConfig) -> None:
     datamodule = SingleBatchDataModule(
         train_path=train_path,
         val_path=val_path,
-        batch_size=int(cfg.model.get("batch_size", 2048)) if "batch_size" in cfg.model else 2048,
-        num_workers=0,
+        batch_size=int(cfg.model.data.batch_size),
+        num_workers=int(cfg.model.data.num_workers),
     )
     datamodule.setup()
 
     mlflow_logger = MLFlowLogger(
-        tracking_uri=str(cfg.mlflow.tracking_uri),
-        experiment_name=str(cfg.mlflow.experiment_name),
+        tracking_uri=str(cfg.logging.mlflow.tracking_uri),
+        experiment_name=str(cfg.logging.mlflow.experiment_name),
         run_name=str(cfg.run.name),
     )
     mlflow_logger.experiment.set_tag(mlflow_logger.run_id, "git_commit", get_git_commit_id())
@@ -70,8 +70,8 @@ def main(cfg: DictConfig) -> None:
         embedding_dim=int(cfg.model.embedding_dim),
         dropout=float(cfg.model.dropout),
         temperature=float(cfg.model.temperature),
-        lr=float(cfg.optimizer.lr),
-        weight_decay=float(cfg.optimizer.weight_decay),
+        lr=float(cfg.model.optimizer.lr),
+        weight_decay=float(cfg.model.optimizer.weight_decay),
         k_list=list(cfg.metrics.k_list),
         filter_seen=bool(cfg.metrics.filter_seen),
         seen_items_by_user=datamodule.artifacts.seen_items_by_user,
