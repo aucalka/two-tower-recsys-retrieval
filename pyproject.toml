@@ -1,0 +1,47 @@
+[project]
+name = "two-tower-recsys-retrieval"
+version = "0.1.0"
+description = "two-tower retrieval recommender for movies"
+authors = [
+    {name = "aucalka"}
+]
+readme = "README.md"
+requires-python = ">=3.11,<3.13"
+dependencies = [
+    "torch (>=2.9.1,<3.0.0)",
+    "lightning (>=2.6.0,<3.0.0)",
+    "hydra-core (>=1.3.2,<2.0.0)",
+    "omegaconf (>=2.3.0,<3.0.0)",
+    "pandas (>=2.3.3,<3.0.0)",
+    "pyarrow (>=22.0.0,<23.0.0)",
+    "tqdm (>=4.67.1,<5.0.0)",
+    "scikit-learn (>=1.8.0,<2.0.0)",
+    "mlflow (>=3.8.0,<4.0.0)",
+    "dvc[s3] (>=3.65.0,<4.0.0)",
+    "dvc-http (>=2.32.0,<3.0.0)",
+    "onnx (>=1.20.0,<2.0.0)",
+    "onnxruntime (>=1.23.2,<2.0.0)",
+    "faiss-cpu (>=1.13.2,<2.0.0)",
+    "matplotlib (>=3.10.8,<4.0.0)",
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[dependency-groups]
+dev = [
+    "pre-commit (>=4.5.1,<5.0.0)",
+    "black (>=25.12.0,<26.0.0)",
+    "isort (>=7.0.0,<8.0.0)",
+    "flake8 (>=7.3.0,<8.0.0)"
+]
+
+[tool.black]
+line-length = 100
+target-version = ["py311"]
+
+[tool.isort]
+profile = "black"
+line_length = 100

@@ -1,0 +1,35 @@
+defaults:
+  - data: movielens20m
+  - model: two_tower
+  - trainer: default
+  - logging: mlflow
+  - _self_
+
+seed: 42
+
+run:
+  name: "two_tower_train"
+
+paths:
+  raw_zip: "data/raw/ml-20m.zip"
+  processed_dir: "data/processed"
+  artifacts_dir: "artifacts"
+  plots_dir: "plots"
+
+preprocess:
+  rating_threshold: 4.0
+  min_user_interactions: 5
+  min_item_interactions: 5
+  max_interactions: 2000000
+  val_last_n: 1
+  test_last_n: 1
+
+metrics:
+  k_list: [10, 50]
+  filter_seen: true
+
+index:
+  build_faiss: true
+
+export:
+  do_onnx: true

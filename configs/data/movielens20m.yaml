@@ -1,0 +1,4 @@
+dataset:
+  name: "movielens20m"
+  ratings_csv: "ml-20m/ratings.csv"
+  movies_csv: "ml-20m/movies.csv"

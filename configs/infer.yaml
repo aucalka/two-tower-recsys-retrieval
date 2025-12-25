@@ -1,0 +1,14 @@
+defaults:
+  - data: movielens20m
+  - model: two_tower
+  - _self_
+
+paths:
+  raw_zip: "data/raw/ml-20m.zip"
+  processed_dir: "data/processed"
+  artifacts_dir: "artifacts"
+
+infer:
+  user_id: 1
+  k: 10
+  filter_seen: true
