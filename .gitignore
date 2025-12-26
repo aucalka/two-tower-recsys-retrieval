@@ -34,9 +34,15 @@ Thumbs.db
 .dvc/cache/
 .dvc/tmp/
 
-data/
+data/raw/*.zip
+data/raw/*.csv
+data/raw/*.parquet
+data/raw/*.json
+
+data/processed/
 artifacts/
-plots/
+
+plots/*
 !plots/.gitkeep
 
 mlruns/
