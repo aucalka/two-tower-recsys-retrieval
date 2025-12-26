@@ -109,7 +109,7 @@ MovieLens 20M \- реальный датасет с рейтингами фил�
 предполагается, что новый член моей команды имеет установленный git и pipx
 
 ```bash
-git clone <REPO_URL>
+git clone https://github.com/aucalka/two-tower-recsys-retrieval
 cd two-tower-recsys-retrieval
 pipx install poetry
 poetry install
@@ -191,3 +191,4 @@ poetry run python -m two_tower_recsys.pipelines.train_pipeline trainer.max_epoch
      -d '{"dataframe_split": {"columns": ["user_id","k"], "data": [[1,10]]}}'
    ```
    под ключём `"data"` выставляем всё те же `user_id` и `k`
+
