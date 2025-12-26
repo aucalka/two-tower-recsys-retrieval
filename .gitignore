@@ -38,10 +38,9 @@ data/raw/*.zip
 data/raw/*.csv
 data/raw/*.parquet
 data/raw/*.json
-
 data/processed/
-artifacts/
 
+artifacts/
 plots/*
 !plots/.gitkeep
 
@@ -55,3 +54,5 @@ node_modules/
 **/node_modules/
 .cache/
 **/.cache/
+
+*.log

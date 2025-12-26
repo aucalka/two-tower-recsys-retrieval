@@ -3,7 +3,6 @@ from __future__ import annotations
 from pathlib import Path
 
 import hydra
-import matplotlib.pyplot as plt
 import pandas as pd
 import torch
 from lightning import Trainer
@@ -15,6 +14,8 @@ from two_tower_recsys.data.download import ensure_raw_zip_exists
 from two_tower_recsys.data.preprocess import preprocess_movielens
 from two_tower_recsys.models.lightning_module import TwoTowerLightningModule
 from two_tower_recsys.utils.git import get_git_commit_id
+from two_tower_recsys.utils.metrics_history import MetricsHistoryCallback
+from two_tower_recsys.utils.plotting import plot_history
 from two_tower_recsys.utils.seeding import seed_everything
 
 CONFIG_DIR = str(Path(__file__).resolve().parents[2] / "configs")
@@ -78,6 +79,8 @@ def main(cfg: DictConfig) -> None:
         val_df=val_df,
     )
 
+    history_cb = MetricsHistoryCallback()
+
     trainer = Trainer(
         max_epochs=int(cfg.trainer.max_epochs),
         accelerator=str(cfg.trainer.accelerator),
@@ -86,22 +89,13 @@ def main(cfg: DictConfig) -> None:
         deterministic=bool(cfg.trainer.deterministic),
         logger=mlflow_logger,
         enable_checkpointing=bool(cfg.trainer.enable_checkpointing),
+        callbacks=[history_cb],
     )
 
     trainer.fit(module, datamodule=datamodule)
 
     plots_dir = Path(cfg.paths.plots_dir)
-    plots_dir.mkdir(parents=True, exist_ok=True)
-    # берём последнее значение train/loss_epoch если есть
-    metrics = trainer.callback_metrics
-    if "train/loss_epoch" in metrics:
-        loss_val = float(metrics["train/loss_epoch"].cpu().item())
-        plt.figure()
-        plt.title("Final train loss (epoch)")
-        plt.bar(["loss"], [loss_val])
-        plt.tight_layout()
-        plt.savefig(plots_dir / "final_train_loss.png")
-        plt.close()
+    plot_history(history_cb.history, plots_dir)
 
     artifacts_dir = Path(cfg.paths.artifacts_dir)
     artifacts_dir.mkdir(parents=True, exist_ok=True)

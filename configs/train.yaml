@@ -3,6 +3,7 @@ defaults:
   - model: two_tower
   - trainer: default
   - logging: mlflow
+  - export: onnx
   - _self_
 
 seed: 42

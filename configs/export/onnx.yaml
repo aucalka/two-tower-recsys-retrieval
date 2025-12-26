@@ -1,2 +1,1 @@
-onnx:
-  opset: 17
+opset: 17

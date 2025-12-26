@@ -3628,6 +3628,24 @@ typing_extensions = ">=4.7.1"
 reference = ["Pillow"]
 
 [[package]]
+name = "onnx-ir"
+version = "0.1.13"
+description = "Efficient in-memory representation for ONNX"
+optional = false
+python-versions = ">=3.9"
+groups = ["main"]
+files = [
+    {file = "onnx_ir-0.1.13-py3-none-any.whl", hash = "sha256:2791493d1529fdbea60c257dc7bc0933dc812e6d68f4976d8b59aa7b4c2de8cf"},
+    {file = "onnx_ir-0.1.13.tar.gz", hash = "sha256:e08f00d30579bdbff2152692a6f1bc1f0523d3321ac6348aadcd40595e56231e"},
+]
+
+[package.dependencies]
+ml_dtypes = ">=0.5.0"
+numpy = "*"
+onnx = ">=1.16"
+typing_extensions = ">=4.10"
+
+[[package]]
 name = "onnxruntime"
 version = "1.23.2"
 description = "ONNX Runtime is a runtime accelerator for Machine Learning models"
@@ -3666,6 +3684,26 @@ numpy = ">=1.21.6"
 packaging = "*"
 protobuf = "*"
 sympy = "*"
+
+[[package]]
+name = "onnxscript"
+version = "0.5.7"
+description = "Naturally author ONNX functions and models using a subset of Python"
+optional = false
+python-versions = ">=3.9"
+groups = ["main"]
+files = [
+    {file = "onnxscript-0.5.7-py3-none-any.whl", hash = "sha256:f94a66059c56d13b44908e9b7fd9dae4b4faa6681c784f3fd4c29cfa863e454e"},
+    {file = "onnxscript-0.5.7.tar.gz", hash = "sha256:480d572451bc233ed7f742b5005cb0c899594b2fdc28e15167dab26f7fd777ad"},
+]
+
+[package.dependencies]
+ml_dtypes = "*"
+numpy = "*"
+onnx = ">=1.16"
+onnx_ir = ">=0.1.12,<2"
+packaging = "*"
+typing_extensions = ">=4.10"
 
 [[package]]
 name = "opentelemetry-api"
@@ -6230,4 +6268,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.11,<3.13"
-content-hash = "39f2ac26ab8a57dc0b31d67c542d26c754ce468e5b430a586a498b155c4b2190"
+content-hash = "876168bc289d7141bb605533c496ee1d7c8dabe396c3adad5f59214ff8079c8f"

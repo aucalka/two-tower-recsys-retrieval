@@ -23,6 +23,7 @@ dependencies = [
     "onnxruntime (>=1.23.2,<2.0.0)",
     "faiss-cpu (>=1.13.2,<2.0.0)",
     "matplotlib (>=3.10.8,<4.0.0)",
+    "onnxscript (>=0.5.7,<0.6.0)",
 ]
 
 
