@@ -19,6 +19,7 @@ def main(cfg: DictConfig) -> None:
 
     user2idx = json.loads((processed_dir / "user2idx.json").read_text(encoding="utf-8"))
     item2idx = json.loads((processed_dir / "item2idx.json").read_text(encoding="utf-8"))
+    movie_id2title = json.loads((processed_dir / "movie_id2title.json").read_text(encoding="utf-8"))
     idx2item = {int(v): int(k) for k, v in item2idx.items()}
 
     user_id = int(cfg.infer.user_id)
@@ -45,7 +46,8 @@ def main(cfg: DictConfig) -> None:
     result = []
     for score, item_idx in zip(topk_scores.tolist(), topk_idx.tolist()):
         movie_id = int(idx2item[int(item_idx)])
-        result.append({"movieId": movie_id, "score": float(score)})
+        title = movie_id2title[str(movie_id)]
+        result.append({"movieId": movie_id, "title": title, "score": float(score)})
 
     print(json.dumps({"userId": user_id, "recommendations": result}, ensure_ascii=False, indent=2))
 

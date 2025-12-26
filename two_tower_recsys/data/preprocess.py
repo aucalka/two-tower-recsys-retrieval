@@ -144,6 +144,9 @@ def preprocess_movielens(
         _extract_zip(Path(raw_zip_path), extract_dir)
 
     ratings_csv = extract_dir / "ml-20m" / "ratings.csv"
+    movies_csv = extract_dir / "ml-20m" / "movies.csv"
+    movies_df = pd.read_csv(movies_csv, usecols=["movieId", "title"])
+    movie_id2title = {int(row.movieId): str(row.title) for row in movies_df.itertuples(index=False)}
 
     chunks = []
     for chunk in tqdm(
@@ -173,6 +176,7 @@ def preprocess_movielens(
     test_path = processed / "test.parquet"
     user_mapping_path = processed / "user2idx.json"
     item_mapping_path = processed / "item2idx.json"
+    movie_id2title_path = processed / "movie_id2title.json"
 
     train.to_parquet(train_path, index=False)
     val.to_parquet(val_path, index=False)
@@ -180,6 +184,7 @@ def preprocess_movielens(
 
     user_mapping_path.write_text(json.dumps(user2idx), encoding="utf-8")
     item_mapping_path.write_text(json.dumps(item2idx), encoding="utf-8")
+    movie_id2title_path.write_text(json.dumps(movie_id2title), encoding="utf-8")
 
     return PreprocessArtifacts(
         train_path=train_path,

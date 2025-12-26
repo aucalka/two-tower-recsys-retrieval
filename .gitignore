@@ -55,4 +55,9 @@ node_modules/
 .cache/
 **/.cache/
 
+mlflow.db
+
+.hydra/
+1/
+
 *.log
